@@ -43,9 +43,11 @@ sword = melee(3)
 spear = melee(5)
 club = melee(2)
 axe = melee(4)
+the_throngler = melee(10)
 
 grimoire = staff(3)
 great_staff = staff(5)
+branch_of_the_world_tree = staff(10)
 
 shortbow = ranged(3)
 crossbow = ranged(4)
