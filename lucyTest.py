@@ -3,14 +3,13 @@ import curses
 
 #   A main function which creates a window environment in the terminal
 def main(stdscr):
-    #   Debug print
-    print("a")
     #   Clears the terminal window environment
     stdscr.clear()
-    #   Debug print
-    print("a")
-    #   I have no idea what thesedo
+
+    stdscr.addstr(10, 10, "Hello", curses.A_REVERSE)
+    #   Refreshes the screen (similar to pygame)
     stdscr.refresh()
+    #   Awaits a key input
     stdscr.getkey()
 
 #   Initialization of the curses library that executes the main function
