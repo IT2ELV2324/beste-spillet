@@ -26,7 +26,15 @@ class consumable:
         self.effect = effect
 
 class potions(consumable): #Gir enten hp eller mana ved bruk.
-    def __init__(self, effect, uses): #Effekt her henviser til hvor mye hp/mana som blir fylt.
+    def __init__(self, effect): #Effekt her henviser til hvor mye hp/mana som blir fylt.
+        super().__init__(self, effect)
+
+class healing_potions(potions): #Gir hp ved bruk.
+    def __init__(self, effect): #Effekt her henviser til hvor mye hp som blir fylt.
+        super().__init__(self, effect)
+
+class mana_potions(potions): #Gir mp ved bruk.
+    def __init__(self, effect): #Effekt her henviser til hvor mye mp som blir fylt.
         super().__init__(self, effect)
 
 class tomes(consumable): #Brukes for å utføre et magisk angrep uten å selv bruke mana.
@@ -68,3 +76,15 @@ ice_tome = tomes(5, 2)
 water_tome = tomes(5, 2)
 light_tome = tomes(5, 2)
 dark_tome = tomes(5, 2)
+
+#Lucy skal fikse når det kjører, men jeg må programmere hva som skal aktiveres.
+def use(item):
+    klasse = item.__class__
+    if klasse == healing_potions:
+        print("heal")
+    elif klasse == mana_potions:
+        print("mana")
+    elif klasse == tomes:
+        print("tome")
+    else:
+        print("Class not defined")
