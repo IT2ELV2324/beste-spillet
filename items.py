@@ -77,14 +77,17 @@ water_tome = tomes(5, 2)
 light_tome = tomes(5, 2)
 dark_tome = tomes(5, 2)
 
-#Lucy skal fikse når det kjører, men jeg må programmere hva som skal aktiveres.
+#Command som skal aktiveres når en item blir brukt.
 def use(item):
     klasse = item.__class__
     if klasse == healing_potions:
         print("heal")
+        hp += item.effect
     elif klasse == mana_potions:
         print("mana")
+        mp += item.effect
     elif klasse == tomes:
         print("tome")
+        dmg = item.effect
     else:
         print("Class not defined")
