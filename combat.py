@@ -2,18 +2,29 @@
 ### COMBAT ###
 ##############
 
-#   Imports the OS library for use in clearing the terminal screen
-import os
-#   Imports the enemies file for when I create the battle system
+#   Imports the curses library for use in terminal formatting.
+import curses
+#   Imports the enemies file
 import enemies
-#   Imports the player file for when I create the battle system
+#   Imports the player file
 import player
+#   Imports the UI file
+import UI
 
 #   A main function
 def combatMain():
-    #   Clears the terminal
-    os.system("cls")
+    run = True
+    while run:
+        
+
 
 #   A UI function for preparation of the UI
 def combatUI():
-    pass
+    #   Creates a window
+    combatWin = curses.newwin(UI.height, UI.width)
+    curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
+    
+    monsterList = open("MonsterTextArt", "r").readlines()
+    for line in monsterList:
+        combatWin.addstr(line, curses.color_pair(1))
+    
