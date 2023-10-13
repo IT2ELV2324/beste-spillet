@@ -83,11 +83,17 @@ def use(item):
     if klasse == healing_potions:
         print("heal")
         hp += item.effect
+        #Må lage en kode som fjerner den fra bag.
     elif klasse == mana_potions:
         print("mana")
         mp += item.effect
+        #Må lage en kode som fjerner den fra bag.
     elif klasse == tomes:
         print("tome")
         dmg = item.effect
+        item.uses -= 1
+        if item.uses == 1:
+            #Må lage en kode som fjerner den fra bag.
+            print("Tome gone")
     else:
         print("Class not defined")
