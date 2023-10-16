@@ -21,6 +21,7 @@ def init_ui(stdscr, vars):
     stdscr.resize(22, 62)
     # Clear screen
     stdscr.clear()
+    stdscr.border()
 
 
     stdscr.addstr(19, 0, "├────────────────────┬───────────────────┬───────────────────┤")
