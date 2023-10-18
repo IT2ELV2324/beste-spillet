@@ -79,22 +79,18 @@ dark_tome = tomes(5, 2)
 
 #Command som skal aktiveres når en item blir brukt. Fungerer ikke helt enda.
 def use(item):
-    print(item.__class__)
     klasse = item.__class__
     if klasse == healing_potions:
-        print("heal")
-        hp += item.effect
+        return item.effect
         #Må lage en kode som fjerner den fra bag.
     elif klasse == mana_potions:
-        print("mana")
-        mp += item.effect
+        return item.effect
         #Må lage en kode som fjerner den fra bag.
     elif klasse == tomes:
-        print("tome")
-        dmg = item.effect
         item.uses -= 1
-        if item.uses == 1:
+        if item.uses <= 0:
             #Må lage en kode som fjerner den fra bag.
             print("Tome gone")
+        return item.effect
     else:
         print("Class not defined")
