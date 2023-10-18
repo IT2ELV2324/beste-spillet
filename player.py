@@ -37,21 +37,24 @@ class Hero:
         if self.health == 0:
             print(f"{self.name} har blitt slått!")
 
-# Example usage
-hero1 = Hero("Harald Helt", 100)
-hero2 = Hero("Evil Villain", 80)
 
-while hero1.health > 0 and hero2.health > 0:
-    print("Gyldige angrep:")
-    for attack in hero1.attacks:
-        print(attack)
+# Puttet koden inn i denne sånn at det ikke kjører på import
+if __name__ == "__main__":
+    # Example usage
+    hero1 = Hero("Harald Helt", 100)
+    hero2 = Hero("Evil Villain", 80)
 
-    chosen_attack = input("Velg et angrep: ").lower()
-    hero1.attack(hero2, chosen_attack)
-    hero2.display_status()
+    while hero1.health > 0 and hero2.health > 0:
+        print("Gyldige angrep:")
+        for attack in hero1.attacks:
+            print(attack)
 
-    if hero2.health > 0:
-        # Velger et tilfeldig angrep for motstanderen
-        enemy_attack = random.choice(list(hero2.attacks.keys()))
-        hero2.attack(hero1, enemy_attack)
-        hero1.display_status()
+        chosen_attack = input("Velg et angrep: ").lower()
+        hero1.attack(hero2, chosen_attack)
+        hero2.display_status()
+
+        if hero2.health > 0:
+            # Velger et tilfeldig angrep for motstanderen
+            enemy_attack = random.choice(list(hero2.attacks.keys()))
+            hero2.attack(hero1, enemy_attack)
+            hero1.display_status()
