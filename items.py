@@ -38,9 +38,8 @@ class mana_potions(potions): #Gir mp ved bruk.
         super().__init__(effect)
 
 class tomes(consumable): #Brukes for å utføre et magisk angrep uten å selv bruke mana.
-    def __init__(self, effect, uses): #Effekt her henviser til mengde skade.
+    def __init__(self, effect): #Effekt her henviser til mengde skade.
         super().__init__(effect)
-        self.uses = uses
 
 leather_armor = armor(2)
 chainmail_armor = armor(5)
@@ -70,31 +69,16 @@ lesser_mana_potion = mana_potions(2)
 medium_mana_potion = mana_potions(3)
 greater_mana_potion = mana_potions(5)
 
-lightning_tome = tomes(5, 2)
-fire_tome = tomes(5, 2)
-ice_tome = tomes(5, 2)
-water_tome = tomes(5, 2)
-light_tome = tomes(5, 2)
-dark_tome = tomes(5, 2)
+lightning_tome = tomes(5)
+fire_tome = tomes(5)
+ice_tome = tomes(5)
+water_tome = tomes(5)
+light_tome = tomes(5)
+dark_tome = tomes(5)
 
-#Command som skal aktiveres når en item blir brukt. Fungerer ikke helt enda.
+#Command som skal aktiveres når en item blir brukt.
 def use(item):
-    print(item.__class__)
-    klasse = item.__class__
-    if klasse == healing_potions:
-        print("heal")
-        hp += item.effect
-        #Må lage en kode som fjerner den fra bag.
-    elif klasse == mana_potions:
-        print("mana")
-        mp += item.effect
-        #Må lage en kode som fjerner den fra bag.
-    elif klasse == tomes:
-        print("tome")
-        dmg = item.effect
-        item.uses -= 1
-        if item.uses == 1:
-            #Må lage en kode som fjerner den fra bag.
-            print("Tome gone")
-    else:
+    try:
+        return item.effect
+    except:
         print("Class not defined")
