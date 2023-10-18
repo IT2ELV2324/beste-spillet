@@ -2,7 +2,7 @@
 ### MAIN FILE ###
 #################
 import curses
-from textcodes import *
+from colours import *
 from curses import wrapper
 from UI import *
 # import combat
@@ -11,7 +11,7 @@ from UI import *
 # import items
 
 
-def init_ui(stdscr, vars):
+def init_ui(stdscr, vars: list):
 
     playerName = vars[0]
     hp = vars[1]
@@ -36,7 +36,7 @@ def init_ui(stdscr, vars):
     stdscr.refresh()
 
 
-def update_ui_info(stdscr, vars):
+def update_ui_info(stdscr, vars: list):
 
     playerName = vars[0]
     hp = vars[1]
@@ -44,7 +44,7 @@ def update_ui_info(stdscr, vars):
     message = vars[3]
 
     stdscr.addstr(20, 1, f"     {playerName}, ")
-    stdscr.addstr(str(hp), curses.COLOR_RED)
+    stdscr.addstr(str(hp), RED)
     stdscr.addstr(20, 21, f"│     {areaName}")
     stdscr.addstr(20, 41, f"│      {message}")
 
@@ -52,7 +52,22 @@ def update_ui_info(stdscr, vars):
 def reset_cursor(stdscr):
     stdscr.move(18, 1)
 
+
+def create_player(stdscr):
+    pass
+
+
+def init_all_colours():
+    # RED
+    global RED
+    curses.init_pair(1, curses.COLOR_RED, -1)
+    RED = curses.color_pair(1)
+
+
 def main(stdscr):
+
+    curses.use_default_colors()
+    init_all_colours()
 
     playerName = "Kjell"
     hp = 100
@@ -71,7 +86,7 @@ def main(stdscr):
         reset_cursor(stdscr)
         stdscr.refresh()
         key = stdscr.getkey()
-        if key == "c":
+        if key == "c":  # Bruker 'c' som exitknapp, hvis noe annet trykkes, skjer ingenting
             is_running = False
 
 
