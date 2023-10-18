@@ -70,27 +70,21 @@ lesser_mana_potion = mana_potions(2)
 medium_mana_potion = mana_potions(3)
 greater_mana_potion = mana_potions(5)
 
-lightning_tome = tomes(5, 2)
-fire_tome = tomes(5, 2)
-ice_tome = tomes(5, 2)
-water_tome = tomes(5, 2)
-light_tome = tomes(5, 2)
-dark_tome = tomes(5, 2)
+lightning_tome = tomes(5)
+fire_tome = tomes(5)
+ice_tome = tomes(5)
+water_tome = tomes(5)
+light_tome = tomes(5)
+dark_tome = tomes(5)
 
-#Command som skal aktiveres når en item blir brukt. Fungerer ikke helt enda.
+#Command som skal aktiveres når en item blir brukt.
 def use(item):
     klasse = item.__class__
     if klasse == healing_potions:
         return item.effect
-        #Må lage en kode som fjerner den fra bag.
     elif klasse == mana_potions:
         return item.effect
-        #Må lage en kode som fjerner den fra bag.
     elif klasse == tomes:
-        item.uses -= 1
-        if item.uses <= 0:
-            #Må lage en kode som fjerner den fra bag.
-            print("Tome gone")
         return item.effect
     else:
         print("Class not defined")
