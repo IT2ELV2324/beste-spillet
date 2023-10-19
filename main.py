@@ -5,7 +5,7 @@ import curses
 from curses import wrapper
 from curses.textpad import Textbox
 from UI import *
-# import combat
+import combat_temp
 import player
 # import enemies  # Vet ikke om jeg trenger denne
 # import items
@@ -24,10 +24,13 @@ def reset_screen(stdscr, vars: list):
     stdscr.border()
 
     stdscr.addstr(20, 0, "├────────────────────┬────────────────────┬────────────────────┤")
-    stdscr.addstr(21, 1, f"{playerName}, ")
+    stdscr.addstr(21, 1, center_text(f"{playerName}, {str(hp)}"))
+    stdscr.addstr(playerName + ", ")
     stdscr.addstr(str(hp), RED)
-    stdscr.addstr(21, 21, f"│{areaName}")
-    stdscr.addstr(21, 42, f"│{current_item}")
+    stdscr.addstr(21, 21, f"│{center_text(areaName)}")
+    stdscr.addstr(areaName)
+    stdscr.addstr(21, 42, f"│{center_text(current_item)}")
+    stdscr.addstr(current_item)
     stdscr.addstr(22, 0, "└────────────────────┴────────────────────┴────────────────────")
 
     stdscr.move(19, 1)
@@ -42,10 +45,13 @@ def update_ui_info(stdscr, vars: list):
     areaName = vars[2]
     current_item = vars[3]
 
-    stdscr.addstr(21, 1, f"{playerName}, ")
+    stdscr.addstr(21, 1, center_text(f"{playerName}, {str(hp)}"))
+    stdscr.addstr(f"{playerName}, ")
     stdscr.addstr(str(hp), RED)
-    stdscr.addstr(21, 21, f"│{areaName}")
-    stdscr.addstr(21, 42, f"│{current_item}")
+    stdscr.addstr(21, 21, f"│{center_text(areaName)}")
+    stdscr.addstr(areaName)
+    stdscr.addstr(21, 42, f"│{center_text(current_item)}")
+    stdscr.addstr(current_item)
 
 
 def reset_cursor(stdscr):
@@ -54,7 +60,7 @@ def reset_cursor(stdscr):
 
 def create_player(stdscr):
     stdscr.addstr(18, 1, "What is your name?")
-    stdscr.addstr(19, 1, "(Press any key)")
+    stdscr.addstr(19, 1, "(Press any key)", curses.A_ITALIC | curses.A_BOLD)
     stdscr.getkey()
     
     input_window = curses.newwin(1, 15, 19, 1)
@@ -64,11 +70,15 @@ def create_player(stdscr):
     name = input_box.gather().capitalize()
     stdscr.addstr(18, 1, "                  ")
     stdscr.addstr(19, 1, "               ")
-    stdscr.addstr(18, 1, f"Very well, {name}")
-    stdscr.addstr(19, 1, "(Press c to exit)")
+    if name[:6] != "Harald":
+        stdscr.addstr(17, 1, "Are you alright? Your name is Harald Helt! Seems you got")
+        stdscr.addstr(18, 1, "quite messed up by that guy Slemsing")
+    else:
+        stdscr.addstr(18, 1, "That's good, Harald. Seems you're not as knocked as we feared")
+    stdscr.addstr(19, 1, "(Press c to exit)", curses.A_BLINK)
     reset_cursor(stdscr)
     
-    hero = player.Hero(name, 100)
+    hero = player.Hero("Harald Helt", 100)
     return hero
 
 
@@ -85,32 +95,53 @@ def init_colours():
     BLUE = curses.color_pair(4)
 
 
+def center_text(text):
+    return " " * ((20 - len(text)) // 2)
+
+
+def move_cursor(stdscr, dir):
+    match dir:
+        case curses.KEY_LEFT:
+            stdscr.move(0, 1)
+        case curses.KEY_RIGHT:
+            pass
+        case curses.KEY_UP:
+            pass
+        case curses.KEY_DOWN:
+            pass
+
+
 def main(stdscr):
 
     curses.use_default_colors()
     init_colours()
 
-    playerName = "?"
-    hp = 100
+    movement_keys = [curses.KEY_LEFT, curses.KEY_RIGHT, curses.KEY_UP, curses.KEY_DOWN]
     areaName = "?"
     current_item = "?"
     
-    reset_screen(stdscr, [playerName, 0, areaName, current_item])
+    reset_screen(stdscr, ["?", 0, areaName, current_item])
     stdscr.refresh()
 
     player = create_player(stdscr)
+    reset_cursor(stdscr)
     
     is_running = True
     while is_running:
 
         # Lat som at det er kode her #
-
         update_ui_info(stdscr, [player.name, player.health, areaName, current_item])
-        reset_cursor(stdscr)
+
         stdscr.refresh()
         key = stdscr.getkey()
-        if key == "c":  # Bruker 'c' som exitknapp, hvis noe annet trykkes, skjer ingenting
+        if key in movement_keys:
+            move_cursor(stdscr, key)
+        if key == 'c' or key == 'C':  # Bruker 'c' som exitknapp, hvis noe annet trykkes, skjer ingenting
             is_running = False
+        if key == 'f' or key == 'F':
+            combat_temp.combatFunc()
+        if key == 'r' or key == 'R':
+            reset_cursor()
 
 
 if __name__ == "__main__":

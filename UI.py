@@ -1,6 +1,6 @@
 #   A file for import of UI-variables
 
 #   Screen width
-width = 64
+width = 62
 #   Screen height
-height = 20
+height = 19
