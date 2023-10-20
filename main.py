@@ -75,7 +75,7 @@ def create_player(stdscr):
         stdscr.addstr(18, 1, "quite messed up by that guy Slemsing")
     else:
         stdscr.addstr(18, 1, "That's good, Harald. Seems you're not as knocked as we feared")
-    stdscr.addstr(19, 1, "(Press c to exit)", curses.A_BLINK)
+    stdscr.addstr(19, 1, "(Press c to exit)", curses.A_REVERSE)
     reset_cursor(stdscr)
     
     hero = player.Hero("Harald Helt", 100)
@@ -83,8 +83,8 @@ def create_player(stdscr):
 
 
 def init_colours():
-    # RED
-    global RED, GREEN, YELLOW, BLUE, ORANGE, PURPLE
+    # All Colour pairs needed
+    global RED, GREEN, YELLOW, BLUE
     curses.init_pair(1, curses.COLOR_RED, -1)
     RED = curses.color_pair(1)
     curses.init_pair(2, curses.COLOR_GREEN, -1)
