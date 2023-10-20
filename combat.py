@@ -29,7 +29,8 @@ def combatUI(stdscr):
     stdscr.refresh()
 
     #   Creates a window
-    combatWin = curses.newwin(UI.height, UI.width, 1, 1)
+    combatWin = curses.newwin(UI.height-1, UI.width-2, 1, 1)
+    combatWin.border()
     curses.init_pair(1, curses.COLOR_WHITE, curses.COLOR_BLACK)
     
     monsterList = open("MonsterTextArt", "r").readlines()
