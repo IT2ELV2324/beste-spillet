@@ -28,10 +28,12 @@ class Enemy: #definerer navn på enemies
     def velg_attack(self): #velger random angrep
         return random.choice(self.attacks)
 
-enemy1 = Enemy("Slemsing",20)
-enemy2 = Enemy("Goblin",35)
-enemy3 = Enemy("Spøkelse",50)
-enemy4 = Enemy("Vamp",80)
+if __name__ == "__main__":
 
-print(f"{enemy1.name} {enemy1.velg_attack().name} deg og gjorde {enemy1.velg_attack().perform_attack()} skade.")
-print(f"{enemy1.name} {enemy1.velg_attack().name} deg og gjorde {enemy1.velg_attack().perform_attack()} skade.")
+    enemy1 = Enemy("Slemsing",20)
+    enemy2 = Enemy("Goblin",35)
+    enemy3 = Enemy("Spøkelse",50)
+    enemy4 = Enemy("Vamp",80)
+
+    print(f"{enemy1.name} {enemy1.velg_attack().name} deg og gjorde {enemy1.velg_attack().perform_attack()} skade.")
+    print(f"{enemy1.name} {enemy1.velg_attack().name} deg og gjorde {enemy1.velg_attack().perform_attack()} skade.")
